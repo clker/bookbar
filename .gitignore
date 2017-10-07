@@ -1,0 +1,6 @@
+*~
+*.pyc
+frontend/*
+!frontend/src
+backend/*.exe
+
