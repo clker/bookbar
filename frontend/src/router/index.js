@@ -1,8 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import books from '@/components/books'
+import book from '@/components/book'
 import topics from '@/components/topics'
 import book_edit from '@/components/book_edit'
+import chapter_edit from '@/components/chapter_edit'
+
 
 Vue.use(Router)
 
@@ -10,22 +13,30 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'index',
       component: books 
     },
     {
       path: '/books',
-      name: 'books',
       component: books 
     },
     {
+      path: '/book/:id',
+      component: book 
+    },
+    {
+      path: '/book/:id/edit',
+      component: book_edit 
+    },
+    {
+      path: '/book/:id/add_chapter',
+      component: chapter_edit
+    },
+    {
       path: '/topics',
-      name: 'topics',
       component: topics
     },
     {
       path: '/add_book',
-      name: 'book_edit',
       component: book_edit 
     }
   ]

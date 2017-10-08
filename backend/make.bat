@@ -1,1 +1,1 @@
-go build main.go models.go views.go
+go build main.go models.go views.go mws.go

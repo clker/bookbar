@@ -10,6 +10,10 @@
           <li><router-link to="/books">Books</router-link></li>
           <li><router-link to="/topics">Topics</router-link></li>
         </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><router-link to="/signup">Signup</router-link></li>
+          <li><router-link to="/login">Login</router-link></li>
+        </ul>
       </div>
     </nav>
     <div class="container">

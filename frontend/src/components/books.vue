@@ -1,9 +1,8 @@
 <template>
     <div>
-        <router-link to="/add_book">Add book</router-link>
-        <div class="panel panel-default" v-for="(book,idx) in books">
-          <div class="panel-heading">{{book.name}}</div>
-          <div class="panel-body">{{book.description}}</div>
+        <a class="btn btn-primary" href="/#/add_book">Add book</a>
+        <div class="" style="margin-top:20px" v-for="book in books">
+            <router-link :to="{path:'/book/'+book.ID}" v-if="!book.DeletedAt">{{book.description}}</router-link>
         </div>
     </div>
 </template>

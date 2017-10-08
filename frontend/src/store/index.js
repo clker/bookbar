@@ -6,11 +6,11 @@ import mutations from './mutations'
 
 
 const state = {
-  books: [
-  ],
-  topics : [
-  ],
-  add_book_done : false
+  books: [],
+  book: {},
+  chapters: [],
+  chapter: {},
+  topics : []
 };
 
 export default new Vuex.Store({

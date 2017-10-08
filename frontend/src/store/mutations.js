@@ -5,13 +5,16 @@ export default {
         state.books = books
     },
     
+    [types.GET_BOOK] (state,book){
+        state.book = book
+    },
+    
     [types.GET_TOPICS] (state,topics){
         state.topics = topics 
     },
 
-    [types.ADD_BOOK] (state, add_book_done){
-        state.add_book_done = add_book_done
-    }
-
+    [types.GET_CHAPTER] (state,chapter){
+        state.chapter = chapter
+    },
 }
 

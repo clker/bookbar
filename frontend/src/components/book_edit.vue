@@ -8,26 +8,25 @@
             <label>Description</label>
             <input class="form-control" v-model="book.description">
         </div>
-        <button @click="create_book()">Sumbit</button>
+        <button @click="create_or_edit_book()">Sumbit</button>
     </div>
 </template>
 
 <script>
 export default {
   name : "book_edit",
-  computed : {
-      book(){
-          if(this.$store.state.add_book_done) this.$router.go(-1)
-          else return {
-              name : '',
-              description : '',
-          }
+  methods: {
+      create_or_edit_book() {
+          this.$store.dispatch('create_or_edit',this.book)
       }
   },
-  methods: {
-      create_book() {
-          this.$store.dispatch('add_book',this.book)
-      }
+  computed: {
+    book() {
+        if(this.$route.params.id)
+            return this.$store.state.book
+        else
+            return {}
+    }
   }
 }
 </script>
