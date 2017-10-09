@@ -9,6 +9,12 @@ export default {
         state.book = book
     },
     
+    [types.DELETE_BOOK] (state,book){
+        var i = state.books.indexOf(book)
+        if(i != -1)
+            state.books.splice(i,1)
+    },
+    
     [types.GET_TOPICS] (state,topics){
         state.topics = topics 
     },

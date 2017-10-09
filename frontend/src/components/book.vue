@@ -4,7 +4,6 @@
             <router-link :to="{path: '/book/' + book.ID + '/edit'}">
                 Edit
             </router-link>
-            <a href="#" v-on:click="delete_book">delete</a>
         </div>
         <div v-if="book.DeletedAt">
             The book is deleted
@@ -32,10 +31,5 @@ export default {
         return this.$store.state.book
     }
   },
-  methods : {
-      delete_book(){
-          this.$store.dispatch('delete_book',this.book)
-      }
-  }
 }
 </script>

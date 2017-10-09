@@ -2,7 +2,10 @@
     <div>
         <a class="btn btn-primary" href="/#/add_book">Add book</a>
         <div class="" style="margin-top:20px" v-for="book in books">
-            <router-link :to="{path:'/book/'+book.ID}" v-if="!book.DeletedAt">{{book.description}}</router-link>
+            <router-link :to="{path:'/book/'+book.ID}" v-if="!book.DeletedAt">
+                {{book.name}}
+            </router-link>
+            <button v-on:click="delete_book(book)" >delete</button>
         </div>
     </div>
 </template>
@@ -17,6 +20,11 @@ export default {
     books() {
         return this.$store.state.books
     }
+  },
+  methods : {
+      delete_book(book){
+          this.$store.dispatch('delete_book',book)
+      }
   }
 }
 </script>

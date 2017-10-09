@@ -90,6 +90,5 @@ func delete_book_model(id string) Book{
     db.Delete(&book)
     db.Where("ID=?",id).First(&baseModel)
     db.Delete(&baseModel)
-    db.Where("ID=?",id).First(&book)
     return book
 }

@@ -35,7 +35,7 @@ func get_book(c *gin.Context){
 func delete_book(c *gin.Context){
     var book Book
     id := c.Param("id")
-    delete_book_model(id)
+    book = delete_book_model(id)
     c.JSON(200,book)
 }
 
