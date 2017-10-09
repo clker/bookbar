@@ -11,7 +11,6 @@ Vue.use(VueResource);
 
 export default {
   get_books({ commit },books ) {
-    console.log("4")
     Vue.http.get(api_url + 'books').then(response =>{
         books = response.body;
         commit(types.GET_BOOKS,books)
@@ -40,7 +39,6 @@ export default {
     });
   },
   delete_book({commit},book){
-    console.log(book)
     Vue.http.delete(api_url + 'book/' + book.ID).then(response =>{
         commit(types.DELETE_BOOK,book)
     },response => {

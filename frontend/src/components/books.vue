@@ -5,7 +5,7 @@
             <router-link :to="{path:'/book/'+book.ID}" v-if="!book.DeletedAt">
                 {{book.name}}
             </router-link>
-            <button v-on:click="delete_book(book)" >delete</button>
+            <span class="hover pull-right" v-on:click="delete_book(book)" >delete</span>
         </div>
     </div>
 </template>

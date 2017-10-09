@@ -36,3 +36,11 @@ export default {
 }
 </script>
 
+<style>
+    .hover {
+        cursor: pointer;
+    }
+    .hover:hover {
+        text-decoration:underline;
+    }
+</style>
