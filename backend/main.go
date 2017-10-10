@@ -7,7 +7,7 @@ import (
 
 func main() {
 
-    open_db()
+    openDb()
 
 	r := gin.Default()
     config := cors.DefaultConfig()
@@ -21,13 +21,13 @@ func main() {
     //r.Use(cors.Default())
     //r.Use()
 
-	r.GET("/books", get_books)
-	r.GET("/topics", get_topics)
-    r.DELETE("/book/:id", delete_book)
-	r.POST("/book", create_or_edit_book)
-    r.GET("/book/:id", get_book)
-    //r.POST("/book/:id", create_or_edit_book)
+	r.GET("/books", getBooks)
+	r.GET("/topics", getTopics)
+    r.DELETE("/book/:id", deleteBook)
+	r.POST("/book", createOrEditBook)
+    r.GET("/book/:id", getBook)
+    r.POST("/book/:id/chapter", createOrEditChapter)
     r.Run(":8000") // listen and serve on 0.0.0.0:8080
 
-    defer close_db()
+    defer closeDb()
 }

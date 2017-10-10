@@ -5,8 +5,10 @@ export default {
         state.books = books
     },
     
-    [types.GET_BOOK] (state,book){
-        state.book = book
+    [types.GET_BOOK] (state,book_chapters){
+        state.book = book_chapters['book']
+        state.chapters = book_chapters['chapters']
+
     },
     
     [types.DELETE_BOOK] (state,book){
