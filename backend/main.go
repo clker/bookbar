@@ -27,6 +27,7 @@ func main() {
 	r.POST("/book", createOrEditBook)
     r.GET("/book/:id", getBook)
     r.POST("/book/:id/chapter", createOrEditChapter)
+    r.GET("/book/:id/ch/:ch_id", getBook)
     r.Run(":8000") // listen and serve on 0.0.0.0:8080
 
     defer closeDb()

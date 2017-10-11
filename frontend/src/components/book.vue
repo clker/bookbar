@@ -5,7 +5,7 @@
                 Edit
             </router-link>
             <router-link :to="{path: '/book/' + book.ID + '/add_chapter'}">
-                Edit
+                Add chapter
             </router-link>
         </div>
         <div v-if="book.DeletedAt">

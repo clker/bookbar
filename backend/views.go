@@ -2,6 +2,7 @@ package main
 import (
         "github.com/gin-gonic/gin"
         "fmt"
+        "strconv"
         //"io/ioutil"
 )
 
@@ -25,10 +26,23 @@ func createOrEditBook(c *gin.Context){
 	c.JSON(200,book)
 }
 
+//c.Param("id") is book_id;
+//c.Param("ch_id") is the order number of the chapter
 func getBook(c *gin.Context){
+    var ch_order_id int
+    var err error
     id := c.Param("id")
+    ch_id := c.Param("ch_id")
+    if(ch_id == ""){
+        ch_order_id = 0
+    }else{
+        ch_order_id,err = strconv.Atoi(ch_id)
+        if err != nil {
+            c.AbortWithError(500,err)
+        }
+    }
+    bookChapters := getBookModel(id,ch_order_id)
     //db.First(&book,id)
-    bookChapters := getBookModel(id)
     c.JSON(200,bookChapters)
 }
 

@@ -17,7 +17,10 @@ export default {
   name : "chapter_edit",
   methods: {
       create_chapter() {
-          this.$store.dispatch('add_chapter',this.chapter,this.$route.params.id)
+          this.$store.dispatch('add_chapter',{
+              chapter:this.chapter,
+              book_id:this.$route.params.id
+          })
       }
   },
   computed: {

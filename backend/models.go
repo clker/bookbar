@@ -64,6 +64,7 @@ type BookChapter struct{
 type BookChapters struct{
     Book Book `json:"book"`
     Chapters []Chapter `json:"chapters"`
+    ChapterOrderId uint `json: "chapterOrderId"`
 }
 
 func openDb(){
@@ -109,13 +110,19 @@ func deleteBookModel(id string) Book{
 func createOrEditChapterModel(id string, chapter Chapter) BookChapter {
     var book Book
     var bookChapter BookChapter
+    var chapters []Chapter
     db.Where("ID=?",id).First(&book)
     if(chapter.ID > 0) {
         db.Save(&chapter)
     }else{
+        db.Order("order").Find(&chapters)
         chapter_id := createBasemodel()
         chapter.ID = chapter_id
-        bookId,_ := strconv.Atoi(id)
+        chapter.Order = uint(len(chapters) + 1)
+        bookId,err := strconv.Atoi(id)
+        if err != nil {
+            fmt.Println("Book id error",err)
+        }
         chapter.BookId = uint(bookId)
         db.Create(&chapter)
     }
@@ -124,7 +131,7 @@ func createOrEditChapterModel(id string, chapter Chapter) BookChapter {
     return bookChapter
 }
 
-func getBookModel(id string) BookChapters {
+func getBookModel(id string, ch_order_id int) BookChapters {
     var book Book
     var chapters []Chapter
     var bookChapters BookChapters
@@ -136,6 +143,7 @@ func getBookModel(id string) BookChapters {
     //jstr,_ := json.Marshal(book)
     //fmt.Println("0",string(jstr))
     bookChapters.Chapters = chapters
+    bookChapters.ChapterOrderId = uint(ch_order_id)
     //jstr1,_ := json.Marshal(chapters)
     //fmt.Println("1",string(jstr1))
     //bookChapters := BookChapters{book:book,chapters:make([]Chapter,0)}
