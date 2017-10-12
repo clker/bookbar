@@ -24,6 +24,7 @@ func main() {
 	r.GET("/books", getBooks)
 	r.GET("/topics", getTopics)
     r.DELETE("/book/:id", deleteBook)
+    r.DELETE("/ch/:id", deleteChapter)
 	r.POST("/book", createOrEditBook)
     r.GET("/book/:id", getBook)
     r.POST("/book/:id/chapter", createOrEditChapter)

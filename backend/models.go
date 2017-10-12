@@ -37,7 +37,7 @@ type Chapter struct {
     Title string `gorm:"not null" json:"title"`
     Content string `gorm:"" json:"content"`
     BaseModel BaseModel `gorm:"polymorphic:Owner;"`
-    Order uint
+    Order uint `json:"order"`
 }
 
 type Topic struct {
@@ -63,8 +63,8 @@ type BookChapter struct{
 
 type BookChapters struct{
     Book Book `json:"book"`
-    Chapters []Chapter `json:"chapters"`
-    ChapterOrderId uint `json: "chapterOrderId"`
+    Chapters []string `json:"chapters"`
+    Chapter Chapter `json:"chapter"`
 }
 
 func openDb(){
@@ -107,6 +107,16 @@ func deleteBookModel(id string) Book{
     return book
 }
 
+func deleteChapterModel(id string) Chapter{
+    var chapter Chapter
+    var baseModel BaseModel
+    db.Where("ID=?",id).First(&chapter)
+    db.Delete(&chapter)
+    db.Where("ID=?",id).First(&baseModel)
+    db.Delete(&baseModel)
+    return chapter
+}
+
 func createOrEditChapterModel(id string, chapter Chapter) BookChapter {
     var book Book
     var bookChapter BookChapter
@@ -137,21 +147,14 @@ func getBookModel(id string, ch_order_id int) BookChapters {
     var bookChapters BookChapters
     db.Where("ID=?",id).First(&book)
     db.Where("book_id=?",id).Find(&chapters)
-    //fmt.Println(book)
-    //fmt.Println(chapters)
     bookChapters.Book = book
-    //jstr,_ := json.Marshal(book)
-    //fmt.Println("0",string(jstr))
-    bookChapters.Chapters = chapters
-    bookChapters.ChapterOrderId = uint(ch_order_id)
-    //jstr1,_ := json.Marshal(chapters)
-    //fmt.Println("1",string(jstr1))
-    //bookChapters := BookChapters{book:book,chapters:make([]Chapter,0)}
-    //bookChapters.chapters = make([]Chapter,len(chapters))
-    //for k,v := range chapters {
-    //    bookChapters.chapters[k] = v
-    //}
-    //jstr2,_ := json.Marshal(bookChapters)
+    bookChapters.Chapters = make([]string,len(chapters))
+    for i,_ := range chapters {
+        bookChapters.Chapters[i] = chapters[i].Title
+    }
+    if(ch_order_id != 0){
+        bookChapters.Chapter = chapters[ch_order_id-1]
+    }
     return bookChapters
 }
 

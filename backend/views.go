@@ -53,6 +53,13 @@ func deleteBook(c *gin.Context){
     c.JSON(200,book)
 }
 
+func deleteChapter(c *gin.Context){
+    var chapter Chapter
+    id := c.Param("id")
+    chapter = deleteChapterModel(id)
+    c.JSON(200,chapter)
+}
+
 func createOrEditChapter(c *gin.Context){
     var chapter Chapter
     bookId := c.Param("id")
