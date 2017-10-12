@@ -16,7 +16,7 @@
         </ul>
       </div>
     </nav>
-    <div class="container">
+    <div class="container"> 
       <!-- <div class="col-sm-3">
        <sidebar></sidebar> 
       </div>
