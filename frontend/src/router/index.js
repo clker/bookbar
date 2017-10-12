@@ -32,6 +32,10 @@ export default new Router({
       component: chapter_edit
     },
     {
+      path: '/book/:id/ch/:ch_id/edit',
+      component: chapter_edit
+    },
+    {
       path: '/topics',
       component: topics
     },

@@ -8,7 +8,7 @@
             <label>Content</label>
             <input class="form-control" v-model="chapter.content">
         </div>
-        <button @click="create_chapter(book.id)">Sumbit</button>
+        <button @click="create_or_edit_chapter(book.id)">Sumbit</button>
     </div>
 </template>
 
@@ -16,8 +16,8 @@
 export default {
   name : "chapter_edit",
   methods: {
-      create_chapter() {
-          this.$store.dispatch('add_chapter',{
+      create_or_edit_chapter() {
+          this.$store.dispatch('create_or_edit_chapter',{
               chapter:this.chapter,
               book_id:this.$route.params.id
           })
@@ -25,7 +25,10 @@ export default {
   },
   computed: {
     chapter() {
-        return this.$store.state.chapter
+        if(this.$route.params.ch_id)
+            return this.$store.state.chapter
+        else
+            return {}
     },
     book(){
         return this.$store.state.book

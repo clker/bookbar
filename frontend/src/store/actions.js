@@ -36,8 +36,8 @@ export default {
       });
   },
 
-  get_book({commit}, id){
-    Vue.http.get(api_url + 'book/' + id).then(response =>{
+  get_book({commit}, url){
+    Vue.http.get(api_url + url).then(response =>{
         commit(types.GET_BOOK,response.body)
     },response => {
     });
@@ -50,7 +50,7 @@ export default {
     });
   },
 
-  add_chapter({ commit }, chapter_and_book) {
+  create_or_edit_chapter({ commit }, chapter_and_book) {
     var book_id = chapter_and_book['book_id']
     var chapter = chapter_and_book['chapter']
     Vue.http.post(api_url + 'book/' + book_id + '/chapter', chapter).then(response =>{
@@ -58,6 +58,14 @@ export default {
         router.push({path:'/book/'+book_id})
     },response => {
     });
+  },
+
+  delete_chapter({commit},chapter){
+      Vue.http.delete(api_url + 'ch/' + chapter.ID).then(response => {
+          commit(types.DELETE_CHAPTER,chapter)
+          router.push({path:chapter.book_id})
+      },response =>{
+      });
   },
 
   create_user({ commit }, user) {

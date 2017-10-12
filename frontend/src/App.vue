@@ -41,6 +41,8 @@ export default {
         cursor: pointer;
     }
     .hover:hover {
-        text-decoration:underline;
+    }
+    .mt-big {
+        margin-top: 30px;
     }
 </style>
