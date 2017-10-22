@@ -31,5 +31,13 @@ export default {
     [types.GET_CHAPTER] (state,chapter){
         state.chapter = chapter
     },
+
+    [types.SHOW_SPIN] (state){
+        state.spin_show = true
+    },
+
+    [types.HIDE_SPIN] (state){
+        state.spin_show = false
+    },
 }
 

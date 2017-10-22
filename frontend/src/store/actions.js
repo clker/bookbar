@@ -37,8 +37,10 @@ export default {
   },
 
   get_book({commit}, url){
+    commit(types.SHOW_SPIN)
     Vue.http.get(api_url + url).then(response =>{
         commit(types.GET_BOOK,response.body)
+        commit(types.HIDE_SPIN)
     },response => {
     });
   },

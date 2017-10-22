@@ -1,43 +1,62 @@
 <template>
     <div>
-        <div v-if="book.DeletedAt">
-            The book is deleted
-        </div>
-        <div class="row" v-else>
-            <div class="col-md-3">
-                <div>
-                    <router-link :to="{path: '/book/' + book.ID + '/edit'}">
-                        Edit
-                    </router-link>
+        <div class="layout">
+            <div class="layout-ceiling">
+                <div class="layout-ceiling-main">
+                    <span v-if="chapter.order">
+                        <router-link :to="{path: '/book/' + book.ID + '/ch/' + chapter.order + '/edit'}">
+                            Edit Chapter
+                        </router-link>
+                    </span>
+                    <span v-else>
+                        <router-link :to="{path: '/book/' + book.ID + '/edit'}">
+                            Edit Book 
+                        </router-link>
+                    </span>
                     <router-link :to="{path: '/book/' + book.ID + '/add_chapter'}">
                         Add chapter
                     </router-link>
-                </div>
-                <ul class="list-group">
-                    <li class="hover list-group-item" v-on:click="get_chapter(0)">Home</li>
-                    <li v-for="(chapter,i) in chapters" class="hover list-group-item" v-on:click="get_chapter(i + 1)">{{chapter}}</li>
-                </ul>
-            </div>
-            <div class="col-md-9" v-if="chapter.order">
-                <div class="pull-right">
-                    <router-link 
-                        :to="{path:'/book/'+book.ID+'/ch/'+chapter.order+'/edit'}">
-                        Edit
-                    </router-link>
-                    <span v-on:click="delete_chapter()">Delete</span>
+                    <span class="primary" v-on:click="delete_chapter()">Delete</span>
                 </div>
                 <div class="clearfix"></div>
-                <div>{{chapter.content}}</div>
-            </div>
-            <div class="col-md-9" v-else>
-                <div class="h1">{{book.name}}</div>
-                <div>{{book.description}}</div>
             </div>
         </div>
+        <div v-if="book.DeletedAt">
+            The book is deleted
+        </div>
+        <Row v-else>
+            <Col span="5">
+                <Menu theme="light" active-name="0">
+                    <MenuItem :name="0">
+                        <div v-on:click="get_chapter(0)">
+                            Cover
+                        </div>
+                    </MenuItem>
+                    <div v-for="(chapter,i) in chapters">
+                        <MenuItem :name="i+1">
+                            <div v-on:click="get_chapter(i+1)">
+                                {{chapter}}
+                            </div>
+                        </MenuItem>
+                    </div>
+                </Menu>
+            </Col>
+            <Col span="19" class="spin-articel list-style-fix">
+                <div v-if="chapter.order">
+                    <div>{{chapter.content}}</div>
+                </div>
+                <div v-else>
+                    <div class="h1">{{book.name}}</div>
+                    <div v-html="book_description_marked"></div>
+                </div>
+                <Spin size="large" fix v-if="spin_show"></Spin>
+            </Col>
+        </Row>
     </div>
 </template>
 
 <script>
+import marked from 'marked'
 export default {
   name : "book",
   created() {
@@ -53,6 +72,16 @@ export default {
     },
     chapter() {
         return this.$store.state.chapter
+    },
+    book_description_marked() {
+        if(this.book.description){
+            return marked(this.book.description)
+        }else{
+            return ""
+        }
+    },
+    spin_show() {
+        return this.$store.state.spin_show
     }
   },
   methods: {

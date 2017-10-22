@@ -10,7 +10,8 @@ const state = {
   book: {},
   chapters: [],
   chapter: {},
-  topics : []
+  topics : [],
+  store_show: false,
 };
 
 export default new Vuex.Store({
