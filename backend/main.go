@@ -11,7 +11,8 @@ func main() {
 
 	r := gin.Default()
     config := cors.DefaultConfig()
-    config.AllowOrigins = []string{"http://localhost:8080","http://127.0.0.1"}
+    //config.AllowAllOrigins = true
+    config.AllowOrigins = []string{"http://localhost:8080","http://127.0.0.1:8080"}
     //config.AllowOrigins = []string{"*"}
     config.AllowMethods = []string{"GET", "PUT", "PATCH", "POST","DELETE"}
     //config.AllowHeaders = []string{"Origin"}
@@ -20,6 +21,9 @@ func main() {
     r.Use(cors.New(config))
     //r.Use(cors.Default())
     //r.Use()
+    //gin.DisableConsoleColor()
+    //f, _ := os.Create("gin.log")
+    //gin.DefaultWriter = io.MultiWriter(f)
 
 	r.GET("/books", getBooks)
 	r.GET("/topics", getTopics)

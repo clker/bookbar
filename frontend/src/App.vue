@@ -78,24 +78,49 @@ export default {
 
     .container {
         margin: 0 50px 0 50px;
+        font-size: 16px;
     }
 
     .h1 {
         font-size: 28px; font-weight: bold; color: rgb(70, 76, 91);
+        line-height: 32px;
     }
 
-    .list-style-fix ul li {
-        list-style-type: disc
+    .normal-height .ivu-menu-item{
+        padding : 10px 5px 10px 20px;
     }
 
-    .list-style-fix ol li {
-        list-style-type: decimal
+
+    .list-style-fix ul {
+        list-style-type: disc;
+        list-style-position: inside;
+    }
+
+    .list-style-fix ul ul {
+        list-style-type: circle;
+        list-style-position: inside;
+        padding-left: 2em;
+    }
+
+    .list-style-fix ol {
+        list-style-type: decimal;
+        list-style-position: inside;
+    }
+
+    .list-style-fix {
+        line-height: 24px;
+    }
+
+    .my-link {
+        color: #2d8cf0;
+        cursor: pointer;
     }
 
 
     body {
         font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
-        font-size: 14px; color: rgb(70, 76, 91);
+        font-size: 16px; 
+        #color: rgb(70, 76, 91);
     }
 
 </style>

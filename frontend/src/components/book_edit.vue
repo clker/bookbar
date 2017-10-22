@@ -10,7 +10,7 @@
                         <Input v-model="book.description" 
                         type="textarea" :autosize="{minRows: 18}"></Input>
                     </TabPane>
-                    <TabPane label="Preview" name="preview"><div v-html="marked_text"></div></TabPane>
+                    <TabPane label="Preview" name="preview"><div class="list-style-fix" v-html="marked_text"></div></TabPane>
                 </Tabs>
             </FormItem>
             <FormItem>
@@ -37,7 +37,7 @@ export default {
         if(this.$route.params.id)
             return this.$store.state.book
         else
-            return {}
+            return {name:'',description:''}
     },
     marked_text() {
     //    console.log(this.$marked)

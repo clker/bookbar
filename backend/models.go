@@ -108,12 +108,22 @@ func deleteBookModel(id string) Book{
 }
 
 func deleteChapterModel(id string) Chapter{
+    var chapters []Chapter
     var chapter Chapter
     var baseModel BaseModel
-    db.Where("ID=?",id).First(&chapter)
-    db.Delete(&chapter)
-    db.Where("ID=?",id).First(&baseModel)
-    db.Delete(&baseModel)
+    var count int
+    chapterId,err := strconv.Atoi(id)
+    if err != nil {
+        fmt.Println(err)
+        return chapter
+    }
+    db.Where("ID=?",chapterId).Find(&chapters).Count(&count)
+    if  count != 0 {
+        chapter = chapters[0]
+        db.Delete(&chapter)
+        db.Where("ID=?",id).First(&baseModel)
+        db.Delete(&baseModel)
+    }
     return chapter
 }
 

@@ -16,7 +16,7 @@
                     <router-link :to="{path: '/book/' + book.ID + '/add_chapter'}">
                         Add chapter
                     </router-link>
-                    <span class="primary" v-on:click="delete_chapter()">Delete</span>
+                    <span class="my-link" v-on:click="delete_chapter()">Delete</span>
                 </div>
                 <div class="clearfix"></div>
             </div>
@@ -27,12 +27,14 @@
         <Row v-else>
             <Col span="5">
                 <Menu theme="light" active-name="0">
-                    <MenuItem :name="0">
-                        <div v-on:click="get_chapter(0)">
-                            Cover
-                        </div>
-                    </MenuItem>
-                    <div v-for="(chapter,i) in chapters">
+                    <div class="normal-height">
+                        <MenuItem :name="0">
+                            <div v-on:click="get_chapter(0)">
+                                Cover
+                            </div>
+                        </MenuItem>
+                    </div>
+                    <div v-for="(chapter,i) in chapters" class="normal-height">
                         <MenuItem :name="i+1">
                             <div v-on:click="get_chapter(i+1)">
                                 {{chapter}}
@@ -43,7 +45,7 @@
             </Col>
             <Col span="19" class="spin-articel list-style-fix">
                 <div v-if="chapter.order">
-                    <div>{{chapter.content}}</div>
+                    <div v-html="chapter_content_marked"></div>
                 </div>
                 <div v-else>
                     <div class="h1">{{book.name}}</div>
@@ -57,6 +59,11 @@
 
 <script>
 import marked from 'marked'
+marked.setOptions({
+  highlight: function (code) {
+    return require('highlight.js').highlightAuto(code).value;
+  }
+});
 export default {
   name : "book",
   created() {
@@ -79,6 +86,16 @@ export default {
         }else{
             return ""
         }
+    },
+    chapter_content_marked() {
+        var marked_content = "";
+        if(this.chapter.content){
+            marked(this.chapter.content,
+                function (err, content) {
+                    marked_content = content
+            });
+        }
+        return marked_content;
     },
     spin_show() {
         return this.$store.state.spin_show
