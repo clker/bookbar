@@ -6,7 +6,11 @@ import (
     _"github.com/go-sql-driver/mysql"
     "fmt"
     "strconv"
+    "reflect"
 )
+
+type Obj interface {
+}
 
 var db *gorm.DB
 var err error
@@ -77,6 +81,33 @@ func openDb(){
 
 func closeDb(){
     db.Close()
+}
+
+func deferFunc(){
+    if err:=recover();err !=nil{
+        fmt.Println(err)
+    }
+}
+
+func getModelsByField(field string, fieldObj Obj, obj Obj) []Obj{
+    defer deferFunc()
+    val := reflect.ValueOf(fieldObj)
+    obj_in := reflect.ValueOf(obj)
+    objs := reflect.MakeSlice(obj_in.Type(),0,0)
+    db.Where(fmt.Sprintf("%s=?",field),val).Find(objs)
+    returnObjs := make([]Obj,objs.Len())
+    return returnObjs
+}
+
+func getModelById(id int,obj Obj) Obj{
+    defer deferFunc()
+    db.Where("ID=?",id).First(&obj)
+    v := reflect.ValueOf(obj)
+    val := v.Interface().(uint)
+    if val != 0{
+        panic(fmt.Sprintf("Wrong id for the type %T",obj))
+    }
+    return obj
 }
 
 func createBasemodel() uint {
@@ -168,3 +199,13 @@ func getBookModel(id string, ch_order_id int) BookChapters {
     return bookChapters
 }
 
+func getBookTopicsModel(id string) []Topic {
+    var topics []Topic
+    var book Book
+    var obj Obj
+    obj = book
+    book = getModelById(id,obj)
+    v = book.interface().(Book)
+    //topics = getModelsByField("book_id",v.ID)
+    return topics
+}

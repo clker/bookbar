@@ -69,3 +69,10 @@ func createOrEditChapter(c *gin.Context){
 }
 
 
+func getBookTopics(c *gin.Context){
+    bookId := c.Param("id")
+    topics := getBookTopicsModel(bookId)
+    c.JSON(200,topics)
+}
+
+
